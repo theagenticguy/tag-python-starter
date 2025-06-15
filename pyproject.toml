@@ -20,6 +20,22 @@ dev = [
 
 scan = ["bandit>=1.8.3", "pip-audit>=2.9.0"]
 
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-autorefs>=1.4.2",
+    "mkdocs-awesome-pages-plugin>=2.10.1",
+    "mkdocs-git-revision-date-localized-plugin>=1.4.7",
+    "mkdocs-include-markdown-plugin>=7.1.6",
+    "mkdocs-literate-nav>=0.6.2",
+    "mkdocs-llmstxt>=0.2.0",
+    "mkdocs-macros-plugin>=1.3.7",
+    "mkdocs-material>=9.6.14",
+    "mkdocs-mermaid2-plugin>=1.2.1",
+    "mkdocs-redirects>=1.2.2",
+    "mkdocstrings-python>=1.16.12",
+    "pymdown-extensions>=10.15",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -179,3 +195,6 @@ scan = { sequence = [
 # TESTING
 test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
 cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artefact" }
+
+docs-dev = { cmd = "mkdocs serve -a 0.0.0.0:8080", help = "run docs server" }
+docs-build = { cmd = "mkdocs build --strict", help = "build docs" }
