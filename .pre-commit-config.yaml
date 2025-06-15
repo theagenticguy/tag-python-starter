@@ -35,6 +35,19 @@ repos:
       - id: pretty-format-json
       - id: trailing-whitespace
 
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.8.3
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.7.13
+    hooks:
+      # Update the uv lockfile
+      - id: uv-lock
+
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
@@ -49,28 +62,15 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-      - id: scan
-        name: scan
-        entry: poe scan
-        language: system
-        pass_filenames: false
-        always_run: true
       - id: test
         name: test
         entry: poe test
         language: system
         pass_filenames: false
         always_run: true
-
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.8.3
-    hooks:
-      - id: commitizen
-        stages: [commit-msg]
-
-  - repo: https://github.com/astral-sh/uv-pre-commit
-    # uv version.
-    rev: 0.7.13
-    hooks:
-      # Update the uv lockfile
-      - id: uv-lock
+      - id: scan
+        name: scan
+        entry: poe scan
+        language: system
+        pass_filenames: false
+        always_run: true
