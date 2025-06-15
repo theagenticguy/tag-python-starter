@@ -1,0 +1,76 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-xml
+        # Full check against all YAML files excluding mkdocs.yml
+      - id: check-yaml
+        name: check non-mkdocs yaml
+        exclude: mkdocs.yml
+        # Unsafe check against mkdocs.yml specifically to allow the necessary
+        # custom tags to render Mermaid diagrams.
+      - id: check-yaml
+        name: check mkdocs yaml
+        files: mkdocs.yml
+        args:
+          # https://github.com/pre-commit/pre-commit-hooks/issues/701
+          # Necessary so that non-standard tags do not throw failures.
+          - "--unsafe"
+      - id: end-of-file-fixer
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: forbid-submodules
+      - id: pretty-format-json
+      - id: trailing-whitespace
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+
+  - repo: local
+    hooks:
+      - id: code-quality
+        name: code-quality
+        entry: poe code-quality
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: scan
+        name: scan
+        entry: poe scan
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: test
+        name: test
+        entry: poe test
+        language: system
+        pass_filenames: false
+        always_run: true
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.8.3
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.7.13
+    hooks:
+      # Update the uv lockfile
+      - id: uv-lock
