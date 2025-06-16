@@ -59,5 +59,5 @@ IMPORTANT: commit your changes regularly.
 - YOU MUST use Google docstring convention
 - YOU MUST use strict type checking with MyPy
 - YOU MUST have 85% minimum code test coverage requirement
-- YOU MUST use conventional commit messages via `git commit -m <(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end` 
+- YOU MUST use conventional commit messages via `git commit -m <(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end`
 - YOU MUST run `poe code-quality` when you are done making a series of code changes
