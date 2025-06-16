@@ -38,7 +38,7 @@ source .venv/bin/activate
 IMPORTANT: commit your changes regularly.
 
 - `git add <file|directory> <another file|directory> ...`  - Regularly add
-- `git commit -m <CONVENTIONAL COMMIT MESSAGE> -s` - Commit with conventional commit messages. must be a single line, valid commit message.
+- `git commit -m "<(feat|fix|chore|ci|docs|refactor|test): use the imperative, present tense>"  -s` - Commit with conventional commit messages. must be a single line, valid commit message.
 - `git push` - Push the changes to the remote repository
 
 ## Project Structure
@@ -59,5 +59,5 @@ IMPORTANT: commit your changes regularly.
 - YOU MUST use Google docstring convention
 - YOU MUST use strict type checking with MyPy
 - YOU MUST have 85% minimum code test coverage requirement
-- YOU MUST use conventional commit messages via commitizen `cz c <CONVENTIONAL COMMIT MESSAGE>`
+- YOU MUST use conventional commit messages via `git commit -m <(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end` 
 - YOU MUST run `poe code-quality` when you are done making a series of code changes
