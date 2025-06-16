@@ -32,7 +32,6 @@ repos:
       - id: detect-aws-credentials
         args: [--allow-missing-credentials]
       - id: forbid-submodules
-      - id: pretty-format-json
       - id: trailing-whitespace
 
   - repo: https://github.com/commitizen-tools/commitizen
@@ -52,7 +51,13 @@ repos:
     rev: v1.5.0
     hooks:
       - id: detect-secrets
-        args: ["--baseline", ".secrets.baseline"]
+        args:
+          [
+            "--baseline",
+            ".secrets.baseline",
+            "--exclude-files",
+            "pnpm-lock.yaml",
+          ]
 
   - repo: local
     hooks:

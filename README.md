@@ -114,6 +114,18 @@ uv build
 pip install -e .
 ```
 
+## Documentation
+
+This template uses [griffe2md](https://github.com/mkdocstrings/griffe2md/tree/main) and a script to generate reference documentation which gets published to the `docs/astro` directory. `poe generate-docs` is a shortcut.
+
+To preview the docs, run `poe dev-docs` from the root of the project.
+
+To build the docs, run `poe build-docs` from the root of the project.
+
+To serve the docs, run `poe serve-docs` from the root of the project.
+
+The documentation is built using [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/).
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
