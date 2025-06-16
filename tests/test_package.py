@@ -10,6 +10,8 @@ def test_hello_world():
     # assert a failed test
     with pytest.raises(AssertionError):
         assert hello_world() == "Hello, World!2"
+
+    with pytest.raises(AssertionError):
         assert hello_world("John") == "Hello, Jane!"
 
 
