@@ -114,6 +114,12 @@ uv build
 pip install -e .
 ```
 
+## Documentation
+
+This template uses [pdoc3](https://pdoc3.github.io/pdoc/) to generate reference documentation which gets published to the `docs/astro` directory. `poe generate-docs` will build the reference documentation and publish it to the `docs/astro` directory.
+
+The documentation is built using [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/).
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.

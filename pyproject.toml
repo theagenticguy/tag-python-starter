@@ -4,11 +4,7 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = [
-    "boto3>=1.38.36",
-    "loguru>=0.7.3",
-    "pydantic>=2.11.7",
-]
+dependencies = ["boto3>=1.38.36", "loguru>=0.7.3", "pydantic>=2.11.7"]
 
 [dependency-groups]
 dev = [
@@ -21,11 +17,9 @@ dev = [
     "pytest-cov>=6.2.1",
     "ruff>=0.11.13",
 ]
+docs = ["griffe2md>=1.1.0"]
 
-scan = [
-    "bandit>=1.8.3",
-    "pip-audit>=2.9.0",
-]
+scan = ["bandit>=1.8.3", "pip-audit>=2.9.0"]
 
 [build-system]
 requires = ["hatchling"]
@@ -164,9 +158,9 @@ executor.type = "uv"
 [tool.poe.tasks]
 
 # QUALITY
-format = "ruff format src tests"
-lint = "ruff check --fix src tests"
-typecheck = "mypy src"
+format = "ruff format src tests scripts"
+lint = "ruff check --fix src tests scripts"
+typecheck = "mypy src scripts"
 code-quality = { sequence = [
     "format",
     "lint",
@@ -175,7 +169,7 @@ code-quality = { sequence = [
 
 # SECURITY
 pip-audit = "pip-audit --ignore=bandit,semgrep"
-bandit = "bandit src tests -c pyproject.toml -q"
+bandit = "bandit src tests scripts -c pyproject.toml -q"
 semgrep = "uvx semgrep@latest --config 'p/default' --error --skip-unknown-extensions"
 scan = { sequence = [
     "pip-audit",
@@ -186,3 +180,18 @@ scan = { sequence = [
 # TESTING
 test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
 cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artefact" }
+
+# DOCUMENTATION
+generate-docs = { cmd = "python scripts/build_reference_docs.py", help = "generate reference docs" }
+# this is a long-running task which must be interrupted. let poe succeed in that case
+dev-docs = { cmd = "pnpm run dev", help = "Preview live reloading docs", cwd = "docs/astro" }
+build-docs = { cmd = "pnpm run build", help = "Build static docs", cwd = "docs/astro" }
+serve-docs = { cmd = "pnpm run preview", help = "Serve static docs (must be built first)", cwd = "docs/astro" }
+build-docs-pipeline = { sequence = [
+    "generate-docs",
+    "build-docs",
+], help = "Generate and build docs" }
+static-preview = { sequence = [
+    "build-docs-pipeline",
+    "serve-docs",
+], help = "Build and preview docs" }
