@@ -1,0 +1,109 @@
+site_name: My Docs
+docs_dir: docs/mkdocs
+
+theme:
+  name: material
+  font:
+    text: "Inter"
+    code: "Inconsolata"
+  custom_dir: docs/overrides
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: custom
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: custom
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - search.share
+    - toc.integrate
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      use_pygments: true
+      auto_title: true
+      linenums: true
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - toc:
+      title: On this page
+      permalink: true
+  - tables
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search
+  - privacy
+  - macros
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_heading: true
+            show_source: true
+  - llmstxt:
+      sections:
+        User Guide:
+          - README.md
+          - user-guide/**/*.md
+        Examples:
+          - examples/**/*.md
+        API Reference:
+          - api-reference/*.md
+
+extra:
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+
+extra_javascript:
+  # Workaround for site_url breaking mermaid rendering; see the following for more info:
+  # https://github.com/squidfunk/mkdocs-material/issues/3742#issuecomment-1076068038
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - https://unpkg.com/feather-icons
+
+extra_css:
+  - stylesheets/extra.css
