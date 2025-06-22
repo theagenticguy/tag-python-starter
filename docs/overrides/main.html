@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block site_meta %}
+{{ super() }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{% endblock %}
+
+{% block scripts %}
+<!-- Add scripts that need to run before here -->
+{{ super() }}
+<!-- Add Feather Icons -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize feather icons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    });
+</script>
+{% endblock %}

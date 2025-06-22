@@ -4,22 +4,32 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["boto3>=1.38.36", "loguru>=0.7.3", "pydantic>=2.11.7"]
+dependencies = ["boto3>=1.38.41", "loguru>=0.7.3", "pydantic>=2.11.7"]
 
 [dependency-groups]
 dev = [
     "commitizen>=4.8.3",
-    "mypy>=1.16.0",
+    "mypy>=1.16.1",
     "poethepoet>=0.35.0",
     "pre-commit>=4.2.0",
-    "pytest>=8.4.0",
+    "pytest>=8.4.1",
     "pytest-asyncio>=1.0.0",
     "pytest-cov>=6.2.1",
-    "ruff>=0.11.13",
+    "pytest-xdist>=3.7.0",
+    "ruff>=0.12.0",
 ]
-docs = ["griffe2md>=1.1.0"]
+docs = [
+    "mike>=2.1.3",
+    "mkdocs>=1.6.1",
+    "mkdocs-llmstxt>=0.2.0",
+    "mkdocs-macros-plugin>=1.3.7",
+    "mkdocs-material>=9.6.14",
+    "mkdocstrings>=0.29.1",
+    "mkdocstrings-python>=1.16.12",
+    "pymdown-extensions>=10.16",
+]
 
-scan = ["bandit>=1.8.3", "pip-audit>=2.9.0"]
+scan = ["bandit>=1.8.5", "pip-audit>=2.9.0"]
 
 [build-system]
 requires = ["hatchling"]
@@ -107,7 +117,7 @@ python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
 asyncio_mode = "auto"
-addopts = "--cov=src --cov-report=term-missing --cov-report=xml --cov-fail-under=85"
+addopts = "--cov=src --cov-report=term-missing --cov-report=xml --cov-fail-under=85 -n auto"
 filterwarnings = [
     "ignore:unclosed database in <sqlite3.Connection object at:ResourceWarning",
 ]
@@ -182,16 +192,3 @@ test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
 cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artefact" }
 
 # DOCUMENTATION
-generate-docs = { cmd = "python scripts/build_reference_docs.py", help = "generate reference docs" }
-# this is a long-running task which must be interrupted. let poe succeed in that case
-dev-docs = { cmd = "pnpm run dev", help = "Preview live reloading docs", cwd = "docs/astro" }
-build-docs = { cmd = "pnpm run build", help = "Build static docs", cwd = "docs/astro" }
-serve-docs = { cmd = "pnpm run preview", help = "Serve static docs (must be built first)", cwd = "docs/astro" }
-build-docs-pipeline = { sequence = [
-    "generate-docs",
-    "build-docs",
-], help = "Generate and build docs" }
-static-preview = { sequence = [
-    "build-docs-pipeline",
-    "serve-docs",
-], help = "Build and preview docs" }
