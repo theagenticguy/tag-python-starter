@@ -61,3 +61,5 @@ IMPORTANT: commit your changes regularly.
 - YOU MUST have 85% minimum code test coverage requirement
 - YOU MUST use conventional commit messages via `git commit -m <(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end`
 - YOU MUST run `poe code-quality` when you are done making a series of code changes
+- YOU MUST use <type> | None syntax for optional types. PEP 604 introduced a new syntax for union type annotations based on the | operator. This syntax is more concise and readable than the previous typing.Optional syntax.
+- ALWAYS dict, list, tuple natively from python isntead of from `typing`
