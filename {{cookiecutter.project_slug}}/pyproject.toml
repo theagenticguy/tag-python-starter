@@ -1,9 +1,9 @@
 [project]
-name = "tag-python-starter"
-version = "0.1.0"
-description = "Add your description here"
+name = "{{cookiecutter.project_slug}}"
+version = "{{cookiecutter.version}}"
+description = "{{cookiecutter.project_description}}"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">={{cookiecutter.python_version}}"
 dependencies = ["boto3>=1.38.41", "loguru>=0.7.3", "pydantic>=2.11.7"]
 
 [dependency-groups]
@@ -158,7 +158,7 @@ version_provider = "uv"
 tag_format = "v$version"
 update_changelog_on_bump = true
 version_files = [
-    "src/package/__init__.py:__version__",
+    "src/{{cookiecutter.package_name}}/__init__.py:__version__",
     "pyproject.toml:version",
 ]
 
@@ -168,9 +168,9 @@ executor.type = "uv"
 [tool.poe.tasks]
 
 # QUALITY
-format = "ruff format src tests scripts"
-lint = "ruff check --fix src tests scripts"
-typecheck = "mypy src scripts"
+format = "ruff format src tests "
+lint = "ruff check --fix src tests"
+typecheck = "mypy src"
 code-quality = { sequence = [
     "format",
     "lint",
@@ -179,7 +179,7 @@ code-quality = { sequence = [
 
 # SECURITY
 pip-audit = "pip-audit --ignore=bandit,semgrep"
-bandit = "bandit src tests scripts -c pyproject.toml -q"
+bandit = "bandit src tests -c pyproject.toml -q"
 semgrep = "uvx semgrep@latest --config 'p/default' --error --skip-unknown-extensions"
 scan = { sequence = [
     "pip-audit",

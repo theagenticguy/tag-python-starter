@@ -1,4 +1,4 @@
-site_name: My Docs
+site_name: {{ cookiecutter.project_name }}
 docs_dir: docs/mkdocs
 
 theme:

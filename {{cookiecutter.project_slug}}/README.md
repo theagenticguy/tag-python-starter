@@ -1,10 +1,10 @@
-# The Agentic Guy's Python starter template
+# {{ cookiecutter.project_name }}
 
-A modern Python project template with best practices for development, testing, and deployment. This template provides a solid foundation for building Python applications with strong typing, comprehensive testing, and robust tooling.
+{{ cookiecutter.project_description }}
 
 ## Features
 
-- **Python 3.13+**: Leveraging modern Python features
+- **Python {{ cookiecutter.python_version }}+**: Leveraging modern Python features
 - **[uv](https://docs.astral.sh/uv/)**: Fast, reliable package management
 - **Ruff**: All-in-one Python linter and formatter
 - **MyPy**: Static type checking with strict mode enabled
@@ -17,7 +17,7 @@ A modern Python project template with best practices for development, testing, a
 
 ## Prerequisites
 
-- Python 3.13 or higher
+- Python {{ cookiecutter.python_version }} or higher
 - [uv](https://docs.astral.sh/uv/) package manager
 
 ## Getting Started
@@ -25,16 +25,13 @@ A modern Python project template with best practices for development, testing, a
 ### Setup
 
 ```bash
-# Clone this repository
-git clone https://github.com/theagenticguy/tag-python-starter.git
-cd tag-python-starter
-# de-git the repo
-rm -rf .git
+# Navigate to your project directory
+cd {{ cookiecutter.project_slug }}
 
 # Install dependencies
 uv sync --all-groups
 
-# Activate virtual environment
+# Activate virtual environment (optional with uv)
 source .venv/bin/activate
 
 # Install pre-commit hooks
@@ -47,32 +44,32 @@ The template uses [poethepoet](https://github.com/nat-n/poethepoet) to manage co
 
 ```bash
 # Format code
-poe format
+uv run poe format
 
 # Lint code
-poe lint
+uv run poe lint
 
 # Type check
-poe typecheck
+uv run poe typecheck
 
 # Run all quality checks
-poe code-quality
+uv run poe code-quality
 
 # Run tests
-poe test
+uv run poe test
 
 # Run tests with coverage reporting
-poe cov
+uv run poe cov
 
 # Security scanning
-poe scan
+uv run poe scan
 ```
 
 ### Commiting
 
 ```bash
 # Commit changes
-cz commit
+git commit -m "(feat|fix|chore|ci|docs|refactor|test): imperitive present tense message, consise, all lower case, no period at the end"
 ```
 
 ## Project Structure
@@ -81,22 +78,24 @@ cz commit
 .
 ├── pyproject.toml    # Project configuration and dependencies
 ├── src/
-│   └── package/      # Main package directory
+│   └── {{ cookiecutter.package_name }}/      # Main package directory
 │       ├── __init__.py
 │       └── hello.py  # Example module
 ├── tests/            # Test files
-│   └── test_package.py
+│   └── test_{{ cookiecutter.package_name }}.py
 ├── .venv/            # Virtual environment (created by UV)
 ├── coverage.xml      # Test coverage report
 └── uv.lock           # Lock file for dependencies
 ```
 
-## Customizing the Template
+## Next Steps
 
-1. Update project metadata in `pyproject.toml`
-2. Rename `src/package` to your actual package name
-3. Update imports in test files to match your package name
-4. Modify version tracking in `tool.commitizen` section of `pyproject.toml`
+After creating your project from this template:
+
+1. Initialize git repository: `git init`
+2. Make your first commit: `git add . && git commit -m "feat: initial project setup"`
+3. Create a remote repository and push your code
+4. Start building your amazing Python project!
 
 ## Dependencies
 
@@ -111,20 +110,10 @@ cz commit
 uv build
 
 # Install the package locally
-pip install -e .
+uv tool install dist/{{cookiecutter.package_name}}-{{cookiecutter.version}}-py3-none-any.whl
 ```
 
 ## Documentation
-
-This template uses [griffe2md](https://github.com/mkdocstrings/griffe2md/tree/main) and a script to generate reference documentation which gets published to the `docs/astro` directory. `poe generate-docs` is a shortcut.
-
-To preview the docs, run `poe dev-docs` from the root of the project.
-
-To build the docs, run `poe build-docs` from the root of the project.
-
-To serve the docs, run `poe serve-docs` from the root of the project.
-
-The documentation is built using [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/).
 
 ## License
 

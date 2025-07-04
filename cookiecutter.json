@@ -1,0 +1,11 @@
+{
+    "project_name": "My Python Project",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+    "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_description": "A description of your project",
+    "author_name": "Your Name",
+    "author_email": "your.email@example.com",
+    "license": ["Apache-2.0"],
+    "version": "0.1.0",
+    "python_version": "3.13"
+}
