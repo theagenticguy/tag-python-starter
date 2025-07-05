@@ -76,10 +76,13 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
+          paths: [src]
           options:
             docstring_style: google
             show_root_heading: true
             show_source: true
+  - api-autonav:
+      modules: ["src"]
   - llmstxt:
       sections:
         User Guide:
@@ -103,7 +106,6 @@ extra_javascript:
   # Workaround for site_url breaking mermaid rendering; see the following for more info:
   # https://github.com/squidfunk/mkdocs-material/issues/3742#issuecomment-1076068038
   - https://unpkg.com/mermaid@11/dist/mermaid.min.js
-  - https://unpkg.com/feather-icons
 
 extra_css:
   - stylesheets/extra.css
