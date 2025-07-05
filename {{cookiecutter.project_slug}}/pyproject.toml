@@ -27,6 +27,7 @@ docs = [
     "mkdocstrings>=0.29.1",
     "mkdocstrings-python>=1.16.12",
     "pymdown-extensions>=10.16",
+    "mkdocs-api-autonav>=0.3.0"
 ]
 
 scan = ["bandit>=1.8.5", "pip-audit>=2.9.0"]
@@ -192,3 +193,7 @@ test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
 cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artefact" }
 
 # DOCUMENTATION
+docs = { cmd = "mkdocs serve -a localhost:8080", help = "serve documentation" }
+docs-build = { cmd = "mkdocs build", help = "build documentation" }
+docs-deploy = { cmd = "mkdocs gh-deploy", help = "deploy documentation" }
+docs-clean = { cmd = "rm -rf site", help = "clean documentation" }
