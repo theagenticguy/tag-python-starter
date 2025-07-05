@@ -7,11 +7,12 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://unpkg.com/feather-icons"></script>
 <!-- Add scripts that need to run before here -->
 {{ super() }}
 <!-- Add Feather Icons -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document$.subscribe(function () {
         // Initialize feather icons
         if (typeof feather !== 'undefined') {
             feather.replace();
