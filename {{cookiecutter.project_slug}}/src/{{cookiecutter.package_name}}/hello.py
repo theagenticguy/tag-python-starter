@@ -7,14 +7,18 @@ def hello_world(name: str = "World") -> str:
     Returns:
         str: The string "Hello, {name}!"
 
-    Examples:
-        # default
-        >>> hello_world()
+    Example:
+        # Default usage
+        ```python
+        hello_world()
         "Hello, World!"
+        ```
 
-        # with name argument
-        >>> hello_world("John")
+        # With name argument
+        ```python
+        hello_world("John")
         "Hello, John!"
+        ```
     """
     return f"Hello, {name}!"
 
