@@ -1,15 +1,20 @@
-def hello_world(name: str = "World") -> str:
+def hello_world(name: str = "World"):
     """Main entry point for the package.
 
     Parameters:
-        name: The name to say hello to.
+        name(str): The name to say hello to.
 
     Returns:
         str: The string "Hello, {name}!"
 
-    Example:
+    Examples:
+        # default
         >>> hello_world()
         "Hello, World!"
+
+        # with name argument
+        >>> hello_world("John")
+        "Hello, John!"
     """
     return f"Hello, {name}!"
 

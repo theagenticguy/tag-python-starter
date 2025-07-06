@@ -14,18 +14,20 @@ This is a Python starter template that uses modern Python tooling:
 - Pytest for testing with coverage requirements
 - Security scanning with Bandit and pip-audit
 - Task automation with poethepoet (poe)
+- Use Loguru for simple logging.
 
 ## Bash commands
 
-- `uv sync --all-groups` - Install dependencies
-- `uv run python <file.py>` - Run a python file
-- `uv run poe <command>` - Run a command with poe
-- `uv add <dependency>` - Add a dependency
-- `uv add --dev <dependency>` - Add a dev dependency
+- `uv sync --all-groups` - Install all dependencies and create a virtual environment.
+- `uv run python <file.py>` - Run a python file.
+- `uv run poe <command>` - Run a command with poe.
+- `uv add <dependency>` - Add a dependency.
+- `uv add --dev <dependency>` - Add a dev dependency.
 - `uv run poe code-quality` - Always run quality checks after editing or adding new code.
 - `uv run poe test` - Run tests. NEVER edit files in the tests directory to pass a test.
-- `uv run poe cov` - Run tests with coverage report
+- `uv run poe cov` - Run tests with coverage report.
 - `uv build` - Build the package. This will create a wheel file in the dist directory.
+- `uv run poe docs` - Preview the documentation.
 
 IMPORTANT: commit your changes regularly.
 
@@ -39,19 +41,22 @@ IMPORTANT: commit your changes regularly.
 .
 ├── pyproject.toml    # Project configuration, dependencies, and tool settings
 ├── src/              # Source code
-│   └── package/      # Main package
+│   └── {{cookiecutter.package_name}}/      # Main package
 │       ├── __init__.py
 │       └── hello.py  # Example module
 └── tests/            # Test directory
-    └── test_package.py
+    └── test_{{cookiecutter.package_name}}.py
 ```
 
-## Standards and Conventions
+## INSTRUCTIONS: Standards and Conventions
 
-- YOU MUST use Google docstring convention
-- YOU MUST use strict type checking with MyPy
-- YOU MUST have 85% minimum code test coverage requirement
-- YOU MUST use conventional commit messages via `git commit -m "(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end"`
-- YOU MUST run `uv run poe code-quality` when you are done making a series of code changes
-- YOU MUST use <type> | None syntax for optional types. PEP 604 introduced a new syntax for union type annotations based on the | operator. This syntax is more concise and readable than the previous typing.Optional syntax.
-- ALWAYS dict, list, tuple natively from python isntead of from `typing`
+- YOU MUST use Google docstring convention.
+- YOU MUST use strict type checking with MyPy.
+- YOU MUST have 85% minimum code test coverage requirement.
+- YOU MUST use conventional commit messages via `git commit -m "(feat|doc|fix etc): imperitive present tense message, consise, all lower case, no period at the end"`.
+- YOU MUST run `uv run poe code-quality` when you are done making a series of code changes.
+- YOU MUST use `<type> | None` syntax for optional types. PEP 604 introduced a new syntax for union type annotations based on the `|` operator. This syntax is more concise and readable than the previous `typing.Optional` syntax.
+- ALWAYS use `dict`, `list`, `tuple` natively from python instead of from `typing`.
+- NEVER use `Union` type, use `|` operator instead.
+- PREFER `textwrap.dedent` with triple quotes instead of `\n` for multi-line strings.
+- ALWAYS use f-strings over `str.format`, `+`, and `%` for string interpolation and concatenation.
