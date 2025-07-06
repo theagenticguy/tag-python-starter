@@ -1,4 +1,4 @@
-def hello_world(name: str = "World"):
+def hello_world(name: str = "World") -> str:
     """Main entry point for the package.
 
     Parameters:
