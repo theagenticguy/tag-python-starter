@@ -24,4 +24,4 @@ COPY --from=builder --chown=nonroot:nonroot /app /app
 ENV PYTHONUNBUFFERED=1
 
 USER nonroot
-ENTRYPOINT ["python", "-m", "src.package.hello"]
+ENTRYPOINT ["python", "-m", "src.tag_python_starter.hello"]

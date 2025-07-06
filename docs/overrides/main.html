@@ -8,10 +8,15 @@
 
 {% block scripts %}
 <!-- Add scripts that need to run before here -->
+<!-- Get the sha using https://www.srihash.org/ -->
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.2"
+    integrity="sha384-qEqAs1VsN9WH2myXDbiP2wGGIttL9bMRZBKCl54ZnzpDlVqbYANP9vMaoT/wvQcf"
+    crossorigin="anonymous"></script>
 {{ super() }}
 <!-- Add Feather Icons -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document$.subscribe(function () {
         // Initialize feather icons
         if (typeof feather !== 'undefined') {
             feather.replace();

@@ -1,7 +1,7 @@
 [project]
 name = "tag-python-starter"
 version = "0.1.0"
-description = "Add your description here"
+description = "A modern python project template."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = ["boto3>=1.38.41", "loguru>=0.7.3", "pydantic>=2.11.7"]
@@ -17,6 +17,7 @@ dev = [
     "pytest-cov>=6.2.1",
     "pytest-xdist>=3.7.0",
     "ruff>=0.12.0",
+    "boto3-stubs[all]>=1.38.41",
 ]
 docs = [
     "mike>=2.1.3",
@@ -27,6 +28,7 @@ docs = [
     "mkdocstrings>=0.29.1",
     "mkdocstrings-python>=1.16.12",
     "pymdown-extensions>=10.16",
+    "mkdocs-api-autonav>=0.3.0",
 ]
 
 scan = ["bandit>=1.8.5", "pip-audit>=2.9.0"]
@@ -109,7 +111,31 @@ docstring-code-format = true
 
 [tool.mypy]
 strict = true
-exclude = ["venv", ".venv"]
+exclude = [
+    "venv",
+    ".venv",
+    ".*/__pycache__",
+    ".*/node_modules",
+    ".*/.mypy_cache",
+    ".*/.pytest_cache",
+    ".*/.ruff_cache",
+    ".*/.coverage",
+    ".*/dist",
+]
+
+[tool.pyright]
+include = ["src"]
+exclude = [
+    "venv",
+    ".venv",
+    "**/__pycache__",
+    "**/node_modules",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+    "**/.coverage",
+    "**/dist",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -149,16 +175,13 @@ include = ["src/**/*.py"]
 [tool.bandit]
 exclude_dirs = ["venv", "tests"]
 
-[tool.pip-audit]
-ignore = ["bandit", "semgrep"]
-
 [tool.commitizen]
 name = "cz_conventional_commits"
 version_provider = "uv"
 tag_format = "v$version"
 update_changelog_on_bump = true
 version_files = [
-    "src/package/__init__.py:__version__",
+    "src/tag_python_starter/__init__.py:__version__",
     "pyproject.toml:version",
 ]
 
@@ -168,9 +191,9 @@ executor.type = "uv"
 [tool.poe.tasks]
 
 # QUALITY
-format = "ruff format src tests scripts"
-lint = "ruff check --fix src tests scripts"
-typecheck = "mypy src scripts"
+format = "ruff format src tests"
+lint = "ruff check --fix src tests"
+typecheck = "mypy src"
 code-quality = { sequence = [
     "format",
     "lint",
@@ -178,8 +201,8 @@ code-quality = { sequence = [
 ], help = "run quality checks" }
 
 # SECURITY
-pip-audit = "pip-audit --ignore=bandit,semgrep"
-bandit = "bandit src tests scripts -c pyproject.toml -q"
+pip-audit = "pip-audit --skip-editable"
+bandit = "bandit -r src tests -c pyproject.toml -q"
 semgrep = "uvx semgrep@latest --config 'p/default' --error --skip-unknown-extensions"
 scan = { sequence = [
     "pip-audit",
@@ -189,6 +212,10 @@ scan = { sequence = [
 
 # TESTING
 test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
-cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artefact" }
+cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artifact" }
 
 # DOCUMENTATION
+docs = { cmd = "mkdocs serve -a localhost:8080", help = "serve documentation" }
+docs-build = { cmd = "mkdocs build", help = "build documentation" }
+docs-deploy = { cmd = "mkdocs gh-deploy", help = "deploy documentation" }
+docs-clean = { cmd = "rm -rf site", help = "clean documentation" }

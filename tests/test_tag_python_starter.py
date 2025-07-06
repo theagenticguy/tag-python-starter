@@ -1,5 +1,5 @@
 import pytest
-from src.package.hello import hello_world
+from src.tag_python_starter.hello import hello_world
 
 
 def test_hello_world():
@@ -25,7 +25,7 @@ def test_main():
     from pathlib import Path
 
     # Get the path to hello.py
-    hello_path = Path(__file__).parent.parent / "src" / "package" / "hello.py"
+    hello_path = Path(__file__).parent.parent / "src" / "tag_python_starter" / "hello.py"
 
     # Create a StringIO to capture stdout
     f = io.StringIO()
