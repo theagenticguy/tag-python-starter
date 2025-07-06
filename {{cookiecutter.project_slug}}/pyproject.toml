@@ -175,9 +175,6 @@ include = ["src/**/*.py"]
 [tool.bandit]
 exclude_dirs = ["venv", "tests"]
 
-[tool.pip-audit]
-ignore = ["bandit", "semgrep"]
-
 [tool.commitizen]
 name = "cz_conventional_commits"
 version_provider = "uv"
@@ -204,8 +201,8 @@ code-quality = { sequence = [
 ], help = "run quality checks" }
 
 # SECURITY
-pip-audit = "pip-audit --ignore=bandit,semgrep"
-bandit = "bandit src tests -c pyproject.toml -q"
+pip-audit = "pip-audit --skip-editable"
+bandit = "bandit -r src tests -c pyproject.toml -q"
 semgrep = "uvx semgrep@latest --config 'p/default' --error --skip-unknown-extensions"
 scan = { sequence = [
     "pip-audit",
