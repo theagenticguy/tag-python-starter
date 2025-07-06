@@ -28,6 +28,9 @@
 # Navigate to your project directory
 cd {{ cookiecutter.project_slug }}
 
+# start git
+git init
+
 # Install dependencies
 uv sync --all-groups
 
