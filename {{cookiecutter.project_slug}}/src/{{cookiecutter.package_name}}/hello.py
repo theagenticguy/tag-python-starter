@@ -2,7 +2,7 @@ def hello_world(name: str = "World") -> str:
     """Main entry point for the package.
 
     Parameters:
-        name(str): The name to say hello to.
+        name (str): The name to say hello to.
 
     Returns:
         str: The string "Hello, {name}!"
