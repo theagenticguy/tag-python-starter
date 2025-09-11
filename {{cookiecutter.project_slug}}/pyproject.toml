@@ -4,44 +4,37 @@ version = "{{cookiecutter.version}}"
 description = "{{cookiecutter.project_description}}"
 readme = "README.md"
 requires-python = ">={{cookiecutter.python_version}}"
-dependencies = ["boto3>=1.38.41", "loguru>=0.7.3", "pydantic>=2.11.7"]
+dependencies = ["boto3>=1.40.29", "loguru>=0.7.3", "pydantic>=2.11.7"]
 
 [dependency-groups]
 dev = [
-    "commitizen>=4.8.3",
-    "mypy>=1.16.1",
-    "poethepoet>=0.35.0",
-    "pre-commit>=4.2.0",
-    "pytest>=8.4.1",
-    "pytest-asyncio>=1.0.0",
-    "pytest-cov>=6.2.1",
-    "pytest-xdist>=3.7.0",
-    "ruff>=0.12.0",
-    "boto3-stubs[all]>=1.38.41",
+    "boto3-stubs[all]>=1.40.29",
+    "commitizen>=4.9.1",
+    "mypy>=1.17.1",
+    "poethepoet>=0.37.0",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.1.0",
+    "pytest-cov>=7.0.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.13.0",
 ]
 docs = [
-    "mike>=2.1.3",
     "mkdocs>=1.6.1",
-    "mkdocs-llmstxt>=0.2.0",
-    "mkdocs-macros-plugin>=1.3.7",
-    "mkdocs-material>=9.6.14",
-    "mkdocstrings>=0.29.1",
-    "mkdocstrings-python>=1.16.12",
-    "pymdown-extensions>=10.16",
-    "mkdocs-api-autonav>=0.3.0",
+    "mkdocs-api-autonav>=0.4.0",
+    "mkdocs-llmstxt>=0.3.1",
+    "mkdocs-macros-plugin>=1.3.9",
+    "mkdocs-material>=9.6.19",
+    "mkdocstrings>=0.30.0",
+    "mkdocstrings-python>=1.18.2",
+    "pymdown-extensions>=10.16.1",
 ]
 
-scan = ["bandit>=1.8.5", "pip-audit>=2.9.0"]
+scan = ["bandit>=1.8.6", "pip-audit>=2.9.0"]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
+requires = ["uv_build>=0.8.17,<0.9.0"]
+build-backend = "uv_build"
 
 [tool.ruff]
 line-length = 120
@@ -214,8 +207,30 @@ scan = { sequence = [
 test = { cmd = "pytest --asyncio-mode=auto -q", help = "run tests" }
 cov = { cmd = "pytest --asyncio-mode=auto --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=85", help = "run tests w/ coverage + XML artifact" }
 
+# JAVASCRIPT ASSETS
+download-mermaid = { shell = "mkdir -p docs/mkdocs/assets/js && curl -sSL https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js -o docs/mkdocs/assets/js/mermaid.min.js", help = "download latest mermaid.min.js" }
+download-feather = { shell = "mkdir -p docs/mkdocs/assets/js && curl -sSL https://cdn.jsdelivr.net/npm/feather-icons@latest/dist/feather.min.js -o docs/mkdocs/assets/js/feather.min.js", help = "download latest feather.min.js" }
+download-js-assets = { sequence = [
+    "download-mermaid",
+    "download-feather",
+], help = "download all javascript assets" }
+build-css = { cmd = "npx @tailwindcss/cli -i ./docs/mkdocs/stylesheets/extra.css -o ./docs/mkdocs/stylesheets/output.css" }
+
 # DOCUMENTATION
-docs = { cmd = "mkdocs serve -a localhost:8080", help = "serve documentation" }
-docs-build = { cmd = "mkdocs build", help = "build documentation" }
-docs-deploy = { cmd = "mkdocs gh-deploy", help = "deploy documentation" }
+docs-assets = { sequence = [
+    "download-js-assets",
+    "build-css",
+], help = "download all javascript assets and build css" }
+docs-dev = { sequence = [
+    "docs-assets",
+    { cmd = "mkdocs serve -a localhost:8080", help = "serve documentation" },
+], help = "serve documentation" }
+docs-build = { sequence = [
+    "docs-assets",
+    { cmd = "mkdocs build", help = "build documentation" },
+], help = "build documentation" }
+docs-deploy = { sequence = [
+    "docs-assets",
+    { cmd = "mkdocs gh-deploy", help = "deploy documentation" },
+], help = "deploy documentation" }
 docs-clean = { cmd = "rm -rf site", help = "clean documentation" }

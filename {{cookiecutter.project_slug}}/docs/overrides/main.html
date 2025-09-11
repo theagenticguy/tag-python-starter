@@ -7,14 +7,8 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- Add scripts that need to run before here -->
-<!-- Get the sha using https://www.srihash.org/ -->
-
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.2"
-    integrity="sha384-qEqAs1VsN9WH2myXDbiP2wGGIttL9bMRZBKCl54ZnzpDlVqbYANP9vMaoT/wvQcf"
-    crossorigin="anonymous"></script>
 {{ super() }}
-<!-- Add Feather Icons -->
+<!-- Initialize Feather Icons -->
 <script>
     document$.subscribe(function () {
         // Initialize feather icons

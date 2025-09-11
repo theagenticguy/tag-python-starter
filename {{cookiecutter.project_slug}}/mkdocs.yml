@@ -1,4 +1,4 @@
-site_name: {{ cookiecutter.project_name }}
+site_name: { { cookiecutter.project_name } }
 docs_dir: docs/mkdocs
 
 theme:
@@ -48,7 +48,8 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.details
   - pymdownx.emoji
   - pymdownx.inlinehilite
@@ -67,29 +68,24 @@ markdown_extensions:
   - md_in_html
 
 plugins:
-  - search
-  - privacy
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - macros
-  - mike:
-      alias_type: symlink
-      canonical_version: latest
+  - privacy
   - mkdocstrings:
       handlers:
         python:
-          paths: [src]
+          paths: ["src/tag_python_starter"]
           options:
             docstring_style: google
             show_root_heading: true
             show_source: true
   - api-autonav:
-      modules: ["src"]
+      modules: ["src/tag_python_starter"]
   - llmstxt:
       sections:
         User Guide:
-          - README.md
           - user-guide/**/*.md
-        Examples:
-          - examples/**/*.md
         API Reference:
           - api-reference/*.md
 
@@ -103,9 +99,8 @@ extra:
       make our documentation better.
 
 extra_javascript:
-  # Workaround for site_url breaking mermaid rendering; see the following for more info:
-  # https://github.com/squidfunk/mkdocs-material/issues/3742#issuecomment-1076068038
-  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - assets/js/mermaid.min.js
+  - assets/js/feather.min.js
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/output.css
